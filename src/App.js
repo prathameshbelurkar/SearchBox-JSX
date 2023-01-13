@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { useState } from "react";
 
 // Components
 import CardList from "./components/card-list/card-list.component";
@@ -8,6 +8,25 @@ import SearchBox from "./components/search-box/search-box.component";
 import "./App.css";
 
 const App = () => {
+  const [searchField, setSearchField] = useState("");
+  const [monsters, setMonsters] = useState([]);
+
+  console.log("render");
+
+  fetch("https://jsonplaceholder.typicode.com/users")
+    .then((response) => response.json())
+    .then((users) => setMonsters(users));
+
+  onSearchChange = (event) => {
+    // Ex: [{name: 'Leane'}, {name: 'Munna'}]
+    const searchFieldString = event.target.value.toLocaleLowerCase();
+    setSearchField(searchFieldString);
+  };
+
+  const filteredMonsters = monsters.filter((monster) => {
+    return monster.name.toLocaleLowerCase().includes(searchField);
+  });
+
   return (
     <div className="App">
       <h1 className="app-title">Search Box</h1>
@@ -18,11 +37,12 @@ const App = () => {
         placeholder="search monsters"
       />
 
-      {/* <CardList monsters={filteredMonsters} /> */}
+      <CardList monsters={filteredMonsters} />
     </div>
   );
 };
 
+// Class Component to be Deleted
 class App extends Component {
   constructor() {
     super();
