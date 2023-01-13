@@ -7,6 +7,22 @@ import SearchBox from "./components/search-box/search-box.component";
 // CSS
 import "./App.css";
 
+const App = () => {
+  return (
+    <div className="App">
+      <h1 className="app-title">Search Box</h1>
+
+      <SearchBox
+        className="monsters-search-box"
+        onChangeHandler={onSearchChange}
+        placeholder="search monsters"
+      />
+
+      {/* <CardList monsters={filteredMonsters} /> */}
+    </div>
+  );
+};
+
 class App extends Component {
   constructor() {
     super();
